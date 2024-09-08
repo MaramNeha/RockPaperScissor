@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Rock Paper Scissor</title>
+        <link rel="stylesheet" href="rockpaperscissor.css">
+    </head>
+    <body>
+        <h1> Rock Paper Scissor</h1>
+        <button onclick="palyerChoice('rock');" class="player-button">
+        <img src="rock.jpg" class="img-rock">
+        </button>
+        <button onclick="palyerChoice('paper');" class="player-button">
+        <img src="paper.jpg" class="img-paper">
+        </button>
+        <button onclick="palyerChoice('scissor');" class="player-button">
+        <img src="scissor.jpg" class="img-scissor">
+        </button>
+        <p class = "js-result"></p>
+        <p class = "js-move"></p>
+        <p class = "js-score"></p>
+        <button onclick="
+        score.win = 0;
+        score.loss = 0;
+        score.tie = 0;
+        displayScore();
+        " class="reset-button">RESET SCORE</button>
+    </body>
+    <script>
+        const score = {
+                win:0,
+                loss:0,
+                tie:0
+            }
+        
+        displayScore();
+
+        function palyerChoice(ch) {
+            let computerMove = computerChoice();
+            let result = ' ';
+            if(ch === 'rock')
+            {
+                if(computerMove === 'rock')
+                {
+                    result = 'tie';
+                }
+                else if(computerMove === 'paper')
+                {
+                    result = 'loss';
+                }
+                else if(computerMove === 'scissor')
+                {
+                    result = 'win';
+                }
+            }
+            else if(ch === 'paper')
+            {
+                if(computerMove === 'rock')
+                {
+                    result = 'win';
+                }
+                else if(computerMove === 'paper')
+                {
+                    result = 'tie';
+                }
+                else if(computerMove === 'scissor')
+                {
+                    result = 'loss';
+                }
+            }
+            else if(ch === 'scissor')
+            {
+                if(computerMove === 'rock')
+                {
+                    result = 'loss';
+                }
+                else if(computerMove === 'paper')
+                {
+                    result = 'win';
+                }
+                else if(computerMove === 'scissor')
+                {
+                    result = 'tie';
+                }
+            }
+
+            if (result === 'win')
+            {
+                score.win += 1;
+            }
+            else if (result === 'loss')
+            {
+                score.loss +=1;
+            }
+            else if (result === 'tie')
+            {
+                score.tie +=1;
+            }
+            displayScore();
+            document.querySelector('.js-result').innerHTML = result;
+            document.querySelector('.js-move')
+                .innerHTML = `you <img src="${ch}.jpg" class="result-img"> <img src="${computerMove}.jpg" class="result-img"> computer.`;
+        }
+
+        function computerChoice () {
+            let computerMove = Math.random();
+            let result = ' ';
+            if (computerMove >= 0 && computerMove < 1/3)
+            {
+                result = "rock";
+            }
+            else if (computerMove >= 1/3 && computerMove < 2/3)
+            {
+                result = 'paper';
+            }
+            else if ( computerMove >=2/3 && computerMove <=1)
+            {
+                result = 'scissor';
+            }
+            return result;
+        }
+
+        function displayScore(){
+            document.querySelector('.js-score')
+                .innerHTML = `wins:${score.win} loss:${score.loss} tie:${score.tie}`
+        }
+
+    </script>
+</html>
